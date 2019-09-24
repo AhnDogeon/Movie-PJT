@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block body %}
+    <div class="container">
+    <p class="mt-5" style="font-family: 'Noto Sans', sans-serif; font-size: 30px; font-weight: 700;">다양한 친구를 만나보세요.</p>
+            {% for user in users %}
+                {% if user != request.user%}
+                    <div class="mx-5 my-2" style="font-family: 'Noto Sans', sans-serif; font-size: 20px;">
+                        <a href="{% url 'accounts:user_detail' user.username %}" style="color: white">✔ {{ user.username }} 님의 페이지 가기</a>
+                    </div>
+                {% endif %}
+            {% endfor %}
+    </div>
+
+{% endblock %}

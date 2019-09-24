@@ -1,0 +1,170 @@
+<style>
+    .header_img {
+        filter: brightness(60%);
+    }
+
+    .header_audience {
+        font-weight: bold;
+        font-size: 32px;
+    }
+
+    .header_title {
+        font-weight: bold;
+        font-size: 25px;
+    }
+</style>
+
+{% extends 'base.html' %}
+
+{% block body %}
+    {% load static %}
+    <div id="app">
+        {#  boxoffice top10  #}
+
+        <header id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <a :href="get_url(42)"><img src="{% static 'movies/1_극한직업.png' %}" class="d-block w-100 header_img"
+                                                alt="1_극한직업"></a>
+                    <div class="carousel-caption d-none d-md-block">
+                        <p class="header_audience mb-2">누적관객수 1위</p>
+                        <a :href="get_url(42)" style="color:white; text-decoration: none;"><p class="header_title mb-1">
+                            극한직업</p></a>
+                        <p>지금까지 이런 맛은 없었다 이것은 갈비인가, 통닭인가</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <a :href="get_url(1)"><img src="{% static 'movies/2_어벤져스.png' %}" class="d-block w-100 header_img"
+                                               alt="2_어벤져스"></a>
+                    <div class="carousel-caption d-none d-md-block">
+                        <p class="header_audience mb-2">누적관객수 2위</p>
+                        <a :href="get_url(1)" style="color:white; text-decoration: none;"><p class="header_title mb-1">
+                            어벤져스: 엔드게임</p></a>
+                        <p>인피니티 워 이후 절반만 살아남은 지구, 마지막 희망이 된 어벤져스</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <a :href="get_url(12)"><img src="{% static 'movies/3_캡틴마블.png' %}" class="d-block w-100 header_img"
+                                                alt="3_캡틴마블"></a>
+                    <div class="carousel-caption d-none d-md-block">
+                        <p class="header_audience mb-2">누적관객수 3위</p>
+                        <a :href="get_url(42)" style="color:white; text-decoration: none;"><p class="header_title mb-1">
+                            캡틴 마블</p></a>
+                        <p>위기에 빠진 어벤져스의 희망!</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <a :href="get_url(19)"><img src="{% static 'movies/4_돈.png' %}" class="d-block w-100 header_img"
+                                                alt="4_돈"></a>
+                    <div class="carousel-caption d-none d-md-block">
+                        <p class="header_audience mb-2">누적관객수 4위</p>
+                        <a :href="get_url(19)" style="color:white; text-decoration: none;"><p class="header_title mb-1">
+                            돈</p></a>
+                        <p>“부자가 되고 싶었다”</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <a :href="get_url(43)"><img src="{% static 'movies/5_증인.png' %}" class="d-block w-100 header_img"
+                                                alt="5_증인"></a>
+                    <div class="carousel-caption d-none d-md-block">
+                        <p class="header_audience mb-2">누적관객수 5위</p>
+                        <a :href="get_url(43)" style="color:white; text-decoration: none;"><p class="header_title mb-1">
+                            증인</p></a>
+                        <p>마음을 여는 순간, 진실이 눈앞에 다가왔다</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <a :href="get_url(44)"><img src="{% static 'movies/6_사바하.png' %}" class="d-block w-100 header_img"
+                                                alt="6_사바하"></a>
+                    <div class="carousel-caption d-none d-md-block">
+                        <p class="header_audience mb-2">누적관객수 6위</p>
+                        <a :href="get_url(44)" style="color:white; text-decoration: none;"><p class="header_title mb-1">
+                            사바하</p></a>
+                        <p>3사람들은 말했다. 그때, 그냥, 그것이 죽었어야 한다고…</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <a :href="get_url(52)"><img src="{% static 'movies/7_알리타.png' %}" class="d-block w-100 header_img"
+                                                alt="7_알리타"></a>
+                    <div class="carousel-caption d-none d-md-block">
+                        <p class="header_audience mb-2">누적관객수 7위</p>
+                        <a :href="get_url(52)" style="color:white; text-decoration: none;"><p class="header_title mb-1">
+                            알리타: 배틀엔젤</p></a>
+                        <p>인간의 두뇌를 가진 기계 소녀, 그녀는 인간인가? 기계인가? 진짜 나를 깨워라!</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <a :href="get_url(51)"><img src="{% static 'movies/8_드래곤길들이기.png' %}"
+                                                class="d-block w-100 header_img" alt="8_드래곤길들이기"></a>
+                    <div class="carousel-caption d-none d-md-block">
+                        <p class="header_audience mb-2">누적관객수 8위</p>
+                        <a :href="get_url(51)" style="color:white; text-decoration: none;"><p class="header_title mb-1">
+                            드래곤 길들이기3</p></a>
+                        <p>영원히 기억될 그들의 마지막 모험이 시작된다!</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <a :href="get_url(25)"><img src="{% static 'movies/9_어스.png' %}" class="d-block w-100 header_img"
+                                                alt="9_어스"></a>
+                    <div class="carousel-caption d-none d-md-block">
+                        <p class="header_audience mb-2">누적관객수 9위</p>
+                        <a :href="get_url(25)" style="color:white; text-decoration: none;"><p class="header_title mb-1">
+                            어스</p></a>
+                        <p>우리는 누구인가?</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <a :href="get_url(2)"><img src="{% static 'movies/10_나의특별한형제.png' %}"
+                                               class="d-block w-100 header_img" alt="10_나의특별한형제"></a>
+                    <div class="carousel-caption d-none d-md-block">
+                        <p class="header_audience mb-2">누적관객수 10위</p>
+                        <a :href="get_url(2)" style="color:white; text-decoration: none;"><p class="header_title mb-1">
+                            나의 특별한 형제</p></a>
+                        <p>머리 좀 쓰는 형 x 몸 좀 쓰는 동생! 세상엔 이런 형제도 있다!</p>
+                    </div>
+                </div>
+
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </header>
+
+        {#  서치바      #}
+        <nav class="navbar navbar-dark flex-md-nowrap container my-3">
+            <span class="navbar-brand"></span>
+            <input class="form-control form-control-dark w-100 mr-3" type="text" placeholder="영화, 배우, 장르, 국가를 검색해보세요"
+                   aria-label="Search"
+                   v-model="search">
+        </nav>
+
+        {#        <p class="my-4 text-left month_movie">박스오피스</p>#}
+        {#        <div class="row width mx-auto">#}
+        {#            {% for top10movie in boxoffice %}#}
+        {#                {{ top10movie.title_ko }}#}
+        {#                {{ top10movie.audience }}#}
+        {#                <br>#}
+        {#            {% endfor %}#}
+        {#        </div>#}
+
+        <div id="app" class="container">
+            <p class="my-4 text-left month_movie">🎞️ Box office </p>
+            <div class="row mx-auto">
+                <div v-if="movies" v-for="movie in movies" class="col-3 mb-2">
+                    <a :href="get_url(movie.pk)" class="d-block font-weight-bold"><img class="img-size" :src="movie.fields.poster_url" alt="영화포스터"></a>
+                    <div class="row">
+                        <div class="col-8 text-truncate">
+                            <a :href="get_url(movie.pk)" class="my-2 d-inline-block font-weight-bold" style="color: white;">${ movie.fields.title_ko }</a>
+                        </div>
+                        <div class="col-4 d-inline-block my-2"><i class="fas fa-star" style="color: red; font-size: 15px;"></i><span style="color: red;"> ${ movie.fields.average_score }</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

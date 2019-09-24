@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <form action="{% url 'movies:movie_update' movie.id %}" method="POST">
+        {% csrf_token %}
+        <div class="div text-left my-4">
+            <div class="mb-4">
+                <h1>🎥 영화 상세정보 수정 페이지 🎥</h1>
+            </div>
+            <div class="mb-3 font-weight-bold">
+                <label for="title">영화제목</label>
+                <input type="text" class="form-control" name="title" id="title" value="{{ movie.title }}"
+                       placeholder="한글로 작성해주세요"/>
+            </div>
+            <div class="mb-3 font-weight-bold">
+                <label for="title_en">영화 장르 </label>
+                <input type="text" class="form-control" name="genre" id="genre" value="{{ movie.genre.name }}"
+                       placeholder="영어로 작성해주세요"/>
+            </div>
+            <div class="mb-3 font-weight-bold">
+                <label for="audience">누적 관객수</label>
+                <input type="number" class="form-control" name="audience" id="audience" value="{{ movie.audience }}"/>
+            </div>
+            <div class="mb-3 font-weight-bold">
+                <label for="poster_url">영화 포스터 url</label>
+                <input type="poster_url" class="form-control" name="poster_url" id="poster_url"
+                       value="{{ movie.poster_url }}"/>
+            </div>
+            <div class="mb-3 font-weight-bold">
+                <label for="description">영화 줄거리</label>
+                <textarea name="description" class="form-control" id="description">{{ movie.description }}</textarea>
+            </div>
+            <div>
+                <input class="btn btn-dark" type="submit" value="Submit"/>
+            </div>
+        </div>
+    </form>
+{% endblock %}

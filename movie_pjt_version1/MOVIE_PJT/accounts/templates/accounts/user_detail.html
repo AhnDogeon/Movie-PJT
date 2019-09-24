@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+                <div class="row">
+                    {% if user == user_info %}
+                        <p class="mt-5" style="font-family: 'Noto Sans', sans-serif; font-size: 30px; font-weight: 700;">안녕하세요, {{user.username}} 님!</p>
+                    {% endif %}
+                    {% if user != user_info %}
+                        {% if user_info.is_staff == False %}
+                            <p class="mt-5" style="font-family: 'Noto Sans', sans-serif; font-size: 30px; font-weight: 700;">{{user_info.username}} 님의 페이지입니다</p>
+                        {% elif user_info.is_staff == True %}
+                            <p class="mt-5" style="font-family: 'Noto Sans', sans-serif; font-size: 30px; font-weight: 700;">👑Master 님의 페이지입니다</p>
+                        {% endif %}
+
+                    {% endif %}
+
+                        {% if user != user_info %}
+                            <form class="mt-5 ml-3" action="{% url 'accounts:toggle_follow' user_info.username %}" method="POST">
+                            {% csrf_token %}
+                                {% if user_info in user.followers.all %}
+                                    <button type="submit" class="btn btn-danger px-1 py-1 mt-1">언팔로우하기</button>
+                                {% else %}
+                                    <button type="submit" class="btn btn-success px-1 py-1 mt-1">팔로우하기</button>
+                                {% endif %}
+                            </form>
+
+                        {% endif %}
+                </div>
+
+                <div class="row ml-4">
+                    <!-- 팔로우 Modal button -->
+                    <p data-toggle="modal" data-target="#followModal" style="border-bottom: 1px solid white; cursor: pointer; font-family: 'Noto Sans', sans-serif; font-size: 20px"><i class="far fa-grin-beam"></i> 팔로우 {{ user_info.followers.all.count }}</p>
+
+
+                    <!-- 팔로우 Modal -->
+                    <div class="modal fade" id="followModal" tabindex="-1" role="dialog"
+                         aria-labelledby="followModalLabel" aria-hidden="true" style="color:black; ">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <p class="modal-title" id="followModalLabel"
+                                       style="font-size: 20px; font-family: 'Noto Sans', sans-serif; font-weight: 700;">
+                                        팔로잉</p>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    {% if user_info.followers.all %}
+
+                                    {% for user in user_info.followers.all %}
+                                    <div class="ml-3 my-2"><a href="{% url 'accounts:user_detail' user.username %}">💛 {{ user.username }}</a></div>
+                                    {% endfor %}
+
+                                    {% endif %}
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 팔로워 Modal button -->
+                    <p class="ml-4" data-toggle="modal" data-target="#followerModal" style="border-bottom: 1px solid white; cursor: pointer; font-family: 'Noto Sans', sans-serif; font-size: 20px"><i class="far fa-smile-wink"></i> 팔로워 {{ user_info.followings.all.count }}</p>
+
+
+                    <!-- 팔로워 Modal -->
+                    <div class="modal fade" id="followerModal" tabindex="-1" role="dialog"
+                         aria-labelledby="followerModalLabel" aria-hidden="true" style="color:black; ">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <p class="modal-title" id="followerModalLabel"
+                                       style="font-size: 20px; font-family: 'Noto Sans', sans-serif; font-weight: 700;">
+                                        팔로워</p>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    {% if user_info.followings.all %}
+                                        {% for user in user_info.followings.all %}
+                                        <div class="ml-3"><a href="{% url 'accounts:user_detail' user.username %}">💜 {{ user.username }}</a></div>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="my-4" style="font-family: 'Noto Sans', sans-serif;">
+            {% if user == user_info %}
+                <p class="mb-3" style="font-size: 24px; font-weight: bold;">⭐{{user.username}} 님을 위한 영화 추천⭐</p>
+                <div class="row ml-3">
+                {% for friend in  user_info.followers.all %}
+                    {% if friend.score_set.first %}
+                    <div class="col-3">
+                        <a href="{% url 'movies:movie_detail' friend.score_set.first.movie.id %}" style="color: white; font-weight: bold;" class="mb-2"><p style="font-size: 16.5px;">🎬 {{ friend.score_set.first.movie.title_ko }}</p></a>
+                        <img class="d-block" src="{{ friend.score_set.first.movie.poster_url }}" alt="{{ friend.score_set.first.movie.title_ko }}" style="width:100%;">
+                    </div>
+                    {% else %}
+                    {% endif %}
+                {% endfor %}
+                </div>
+
+            {% endif %}
+        </div>
+
+        <div class="mb-3 mt-5" style="font-family: 'Noto Sans', sans-serif;">
+            {% if user == user_info %}
+                <div class="mb-4" >
+                <p style="font-size: 24px; font-weight: bold;">📝 내 리뷰 보기</p>
+                <hr  align="left" style="border: solid 1px white; width: 60%;">
+                </div>
+            {% endif %}
+            {% if user != user_info %}
+                {% if user_info.is_staff == False %}
+                    <div class="mb-4" >
+                    <p style="font-size: 24px; font-weight: bold;">📝 {{user_info.username}}님의 리뷰 보기</p>
+                    <hr  align="left" style="border: solid 1px white; width: 60%;">
+                    </div>
+                {% elif user_info.is_staff == True %}
+                    <div class="mb-4" >
+                    <p style="font-size: 24px; font-weight: bold;">📝 Master님의 리뷰 보기</p>
+                    <hr  align="left" style="border: solid 1px white; width: 60%;">
+                    </div>
+                {% endif %}
+            {% endif %}
+
+            {% if user_info.score_set.all %}
+                    {% for score in user_info.score_set.all %}
+                        <div class="ml-4 my-4">
+                            <a href="{% url 'movies:movie_detail' score.movie.id %}" style="color: white; font-weight: bold; font-size: 20px;">{{ score.movie.title_ko }}</a><i class="fas fa-star ml-2" style="color: red; font-size: 15px;"><span class="ml-2">{{ score.value }}.0</span></i>
+                            <p class="ml-4 mt-3" style="color: white;"> ◻️ {{ score.content }}</p>
+{#                            <hr  align="left" style="border: solid 1px white; width: 60%;">#}
+                        </div>
+                    {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
