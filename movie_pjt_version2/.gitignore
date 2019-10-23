@@ -1,0 +1,13 @@
+venv
+/venv
+.idea
+/.idea
+/_pycache_/
+/__pychache__/
+db.sqlite3
+/_pycache_/
+/__pycache__/
+__pycache__
+api/__pycache__
+
+/song_test
